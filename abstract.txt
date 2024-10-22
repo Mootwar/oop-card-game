@@ -1,0 +1,1 @@
+This project implements the classic card game of blackjack (a.k.a. 21) using object-oriented design principles and patterns. This project aims to be modular, flexible, and extendable, leaving ample room for modifications and additions. 

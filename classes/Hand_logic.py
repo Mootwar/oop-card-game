@@ -1,63 +1,28 @@
-"""Card class
-    Handles the card states and uses encapsulation with property tags to secure data 
-    security and immutability.
-    
-Returns:
-    Card: A playing card with a suit and rank, along with its associated value.
+"""Hand class
+    Handles the cards a player currently holds
 """
+import Card_logic
+import Deck
 
-from typing import Dict, Tuple
+class Hand:
+    def __init__(self, deck: Deck.Deck):
+        self.cards: list[Card_logic.Card] = []
+        self.score = 0
+        self.deck = deck
 
-# Define dictionaries for suits and ranks
-SUITS = {
-    "hearts": "Hearts",
-    "diamonds": "Diamonds",
-    "clubs": "Clubs",
-    "spades": "Spades"
-}
+    def hit(self):
+        # Add a card to the hand and update the score.
+        self.cards.append(self.deck.GiveCard)
+        self.update_score()
 
-RANKS = {
-    "two": 2,
-    "three": 3,
-    "four": 4,
-    "five": 5,
-    "six": 6,
-    "seven": 7,
-    "eight": 8,
-    "nine": 9,
-    "ten": 10,
-    "jack": 10,
-    "queen": 10,
-    "king": 10,
-    "ace": 11  # Handle flexible Ace value in Hand or Dealer logic
-}
+    def update_score(self):
+        # Calculate the total score for the hand.
+        self.score = sum(card.value for card in self.cards)
+        ace_count = sum(1 for card in self.cards if card.rank == 11)
+        while self.score > 21 and ace_count > 0:
+            self.score -= 10
+            ace_count -= 1
 
-class Card:
-    def __init__(self, suit: str, rank: str):
-        # Check that suit and rank are valid
-        if suit.lower() not in SUITS:
-            raise ValueError(f"Invalid suit: {suit}")
-        if rank.lower() not in RANKS:
-            raise ValueError(f"Invalid rank: {rank}")
-
-        # Set private attributes
-        self._suit = SUITS[suit.lower()]
-        self._rank = rank.lower()
-
-    @property
-    def suit(self) -> str:
-        """Getter for suit"""
-        return self._suit
-
-    @property
-    def rank(self) -> str:
-        """Getter for rank"""
-        return self._rank
-
-    def __repr__(self) -> str:
-        return f"{self.rank.title()} of {self.suit}"
-
-    @property
-    def value(self) -> Tuple[int, str]:
-        """Get a tuple of the numerical value of the card and the suit."""
-        return RANKS[self._rank], self._suit
+    def is_bust(self):
+        # Return True if the hand's score exceeds 21.
+        return self.score > 21

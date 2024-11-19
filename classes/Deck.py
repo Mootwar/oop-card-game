@@ -3,7 +3,7 @@ Deck Class
 Handles the deck 
 '''
 
-import Card
+import Card_logic
 import random
 
 class Deck:
@@ -13,9 +13,9 @@ class Deck:
     
     def FillOutDeck(self, numberOfDecks):
         while(numberOfDecks > 0):
-            for suit in Card.SUITS:
-                for rank in Card.RANKS:
-                    self.listOfCards.append(Card.Card(suit, rank))
+            for suit in Card_logic.SUITS:
+                for rank in Card_logic.RANKS:
+                    self.listOfCards.append(Card_logic.Card(suit, rank))
             numberOfDecks = numberOfDecks-1
 
     def RemoveCard(self, list, cardToBeRemoved):

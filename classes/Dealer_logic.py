@@ -7,10 +7,11 @@ Returns:
     _type_: _description_
 """
 import Deck
+import Hand_logic
 
 class Dealer:
     def __init__(self):
-        self._hand = Hand()  # Dealer’s hand, assuming a Hand class is defined
+        self._hand = Hand_logic.Hand()  # Dealer’s hand, assuming a Hand class is defined
 
     @property
     def hand(self):

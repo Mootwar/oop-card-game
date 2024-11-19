@@ -1,3 +1,11 @@
+"""
+Dealer logic program
+Follows simple logic asking for more cards until its hand gets to 16 or above 
+also has a method to show its first card as a string 
+
+Returns:
+    _type_: _description_
+"""
 import Deck
 
 class Dealer:

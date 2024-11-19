@@ -1,14 +1,14 @@
 """Hand class
     Handles the cards a player currently holds
 """
-import Card
+import card_logic
 
 class Hand:
     def __init__(self):
         self.cards = []
         self.score = 0
 
-    def hit(self, card: Card):
+    def hit(self, card: card_logic.Card):
         # Add a card to the hand and update the score.
         self.cards.append(card)
         self.update_score()

@@ -14,7 +14,12 @@ class Hand:
         # Add a card to the hand and update the score.
         self.cards.append(self.deck.GiveCard)
         self.update_score()
-
+   
+    def GetScore(self)-> int:
+        return (self.score)
+    
+    def GetFirstCardDealer():
+    
     def update_score(self):
         # Calculate the total score for the hand.
         self.score = sum(card.value for card in self.cards)

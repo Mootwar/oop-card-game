@@ -7,6 +7,7 @@ Returns:
     _type_: _description_
 """
 import Deck
+from Hand_logic import Hand
 
 class Dealer:
     def __init__(self):

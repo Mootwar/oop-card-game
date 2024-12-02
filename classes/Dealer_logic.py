@@ -6,8 +6,8 @@ also has a method to show its first card as a string
 Returns:
     _type_: _description_
 """
-import Deck
-from Hand_logic import Hand
+from .Deck import Deck
+from .Hand_logic import Hand
 
 class Dealer:
     def __init__(self):

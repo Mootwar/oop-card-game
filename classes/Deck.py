@@ -3,19 +3,22 @@ Deck Class
 Handles the deck 
 '''
 
-import Card_logic
+from .Card_logic import SUITS
+from .Card_logic import RANKS
+from .Card_logic import Card
 import random
 
 class Deck:
     def __init__(self, numOfDecks=1):
         self.listOfCards = []
-        self.FillOutDeck(numOfDecks)
+        self.FillOutDeck(int(numOfDecks))
+        self.SuffleDeck()
     
     def FillOutDeck(self, numberOfDecks):
         while(numberOfDecks > 0):
-            for suit in Card_logic.SUITS:
-                for rank in Card_logic.RANKS:
-                    self.listOfCards.append(Card_logic.Card(suit, rank))
+            for suit in SUITS:
+                for rank in RANKS:
+                    self.listOfCards.append(Card(suit, rank))
             numberOfDecks = numberOfDecks-1
 
     def RemoveCard(self, list, cardToBeRemoved):
@@ -28,7 +31,7 @@ class Deck:
     def PrintSizeOfDeck(self):
         print(len(self.listOfCards))
 
-    def GiveCard(self):
+    def GiveCard(self) -> Card:
         cardToGive = self.listOfCards[random.randint(0, len(self.listOfCards)-1)]
         self.RemoveCard(self.listOfCards,cardToGive)
         return cardToGive

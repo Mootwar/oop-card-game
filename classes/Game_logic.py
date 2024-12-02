@@ -1,29 +1,33 @@
-from Hand_logic import Hand
-import Deck
+from .Hand_logic import Hand
+from .Deck import Deck
 
 class Player:
-    def __init__(self, hand):
-        self.hand = Hand(hand)
+    def __init__(self, Deck):
+        self.hand = Hand(Deck)
 
     def printHand(self):
-        for card in self.hand:
+        print("Current Hand:")
+        for card in self.hand.cards:
             print(card.__repr__())
     def process(self):
-        self.hand.hit()
-        if self.hand.is_bust():
-            print("bussssss")
-            return
-        self.hand.hit()
+        while True:
+            self.hand.hit()
+            self.printHand()
+            self.printInfo()
+            if self.hand.is_bust():
+                print("bust")
+                break
     def printInfo(self):
         for card in self.hand.cards:
             card.__repr__()
-        print("Total value is: " + self.hand.score)
+        print("Total value is: " + str(self.hand.score))
 
 class Game:
     def __init__(self):
         numOfCards = self.GUI()
         self.GameDeck = Deck(numOfCards)
         self.Player = Player(self.GameDeck)
+        self.PlayGame()
 
 
     def GUI(self):
@@ -35,5 +39,3 @@ class Game:
     def PlayGame(self):
         self.Player.process()
 
-
-        

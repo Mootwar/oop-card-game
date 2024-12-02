@@ -7,13 +7,13 @@ Returns:
     _type_: _description_
 """
 
-from .Deck import Deck
+from .Deck_logic import Deck
 from .Hand_logic import Hand
 
 
 class Dealer:
     def __init__(self):
-        self._hand = Hand_logic.Hand  # Dealer’s hand, assuming a Hand class is defined
+        self._hand = Hand()  # Dealer’s hand, assuming a Hand class is defined
         
     @property
     def hand(self):
@@ -42,12 +42,15 @@ class Dealer:
         """
         return self._hand.GetScore
     
-    def show_first_card(self) -> Hand_logic.Card_logic.Card:
+    def show_first_card(self):
         """
         Show only the dealer's first card (to partially reveal the hand at the beginning of the game).
         Useful for games where the dealer's full hand is hidden initially.
         """
-        return self._hand.
+        if self._hand.cards:
+            return self._hand.cards[0]
+        
+        return None
 
     def __repr__(self):
         return f"Dealer's hand: {self._hand}"

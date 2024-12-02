@@ -1,6 +1,7 @@
 from .Hand_logic import Hand
-from .Deck import Deck
-
+from .Deck_logic import Deck
+from .player_logic import Player
+'''
 class Player:
     def __init__(self, Deck):
         self.hand = Hand(Deck)
@@ -21,7 +22,7 @@ class Player:
         for card in self.hand.cards:
             card.__repr__()
         print("Total value is: " + str(self.hand.score))
-
+'''
 class Game:
     def __init__(self):
         numOfCards = self.GUI()
@@ -37,5 +38,5 @@ class Game:
         return num
 
     def PlayGame(self):
-        self.Player.process()
+        self.Player.play_turn()
 

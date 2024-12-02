@@ -2,7 +2,7 @@
     Handles the cards a player currently holds
 """
 from .Card_logic import Card
-from .Deck import Deck
+from .Deck_logic import Deck
 
 class Hand:
     def __init__(self, deck: Deck):
@@ -17,8 +17,6 @@ class Hand:
    
     def GetScore(self)-> int:
         return (self.score)
-    
-    def GetFirstCardDealer():
     
     def update_score(self):
         # Calculate the total score for the hand.

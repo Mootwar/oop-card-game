@@ -21,7 +21,7 @@ class Hand:
     def update_score(self):
         # Calculate the total score for the hand.
         self.score = sum(card.value[0] for card in self.cards)
-        ace_count = sum(1 for card in self.cards if card.rank == 11)
+        ace_count = sum(1 for card in self.cards if card.value[0] == 11)
         while self.score > 21 and ace_count > 0:
             self.score -= 10
             ace_count -= 1

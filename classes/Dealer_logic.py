@@ -12,8 +12,10 @@ from .Hand_logic import Hand
 
 
 class Dealer:
-    def __init__(self):
-        self._hand = Hand()  # Dealer’s hand, assuming a Hand class is defined
+    def __init__(self, _deck):
+        self._hand = Hand(_deck)  # Dealer’s hand, assuming a Hand class is defined
+        self._hand.hit()
+        self._hand.hit()
         
     @property
     def hand(self):
@@ -31,7 +33,7 @@ class Dealer:
         - Stops drawing if the hand value is 16 or more.
         - Finally return the value of their hand
         """
-        while self._hand.GetScore < 16:
+        while self._hand.GetScore() < 16:
             self._hand.hit()
     def DealerScore(self) -> int:
         """
@@ -40,7 +42,7 @@ class Dealer:
         Returns:
             int: Value of hand
         """
-        return self._hand.GetScore
+        return self._hand.GetScore()
     
     def show_first_card(self):
         """
@@ -52,5 +54,7 @@ class Dealer:
         
         return None
 
-    def __repr__(self):
-        return f"Dealer's hand: {self._hand}"
+    def printHand(self):
+        print("Dealer's Hand:")
+        for card in self._hand.cards:
+            print(card.__repr__())

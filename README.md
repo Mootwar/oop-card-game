@@ -1,2 +1,3 @@
 # oop-card-game
-textualize.io
+Run tests and flake8 with makefile
+To play use make play

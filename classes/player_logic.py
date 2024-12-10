@@ -7,9 +7,6 @@ class Player:
         self.game_deck = _deck 
         self._hand = Hand(self.game_deck)
 
-    def receive_card(self,card):
-        self._hand.add_card(card)
-
     def printHand(self):
         print("Current Hand:")
         for card in self._hand.cards:

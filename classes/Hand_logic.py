@@ -3,6 +3,7 @@
 """
 from .Card_logic import Card
 from .Deck_logic import Deck
+from typing import Optional
 
 class Hand:
     def __init__(self, deck: Deck):
@@ -10,9 +11,12 @@ class Hand:
         self.score = 0
         self.deck = deck
 
-    def hit(self):
-        # Add a card to the hand and update the score.
-        self.cards.append(self.deck.GiveCard())
+    def hit(self, card: Optional[Card] = None):
+        """Add a card to the hand, either from the deck or provided explicitly."""
+        if card:
+            self.cards.append(card)
+        else:
+            self.cards.append(self.deck.GiveCard())
         self.update_score()
    
     def GetScore(self)-> int:
@@ -30,5 +34,4 @@ class Hand:
         # Return True if the hand's score exceeds 21.
         return self.score > 21
 
-    def is_black_jack(self):
-        return self.score == 21
+

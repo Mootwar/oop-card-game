@@ -24,13 +24,6 @@ class Deck:
     def RemoveCard(self, list, cardToBeRemoved):
         list.remove(cardToBeRemoved)
 
-    def PrintDeck(self):
-        for card in self.listOfCards:
-            print(card.__repr__())
-
-    def PrintSizeOfDeck(self):
-        print(len(self.listOfCards))
-
     def GiveCard(self) -> Card:
         cardToGive = self.listOfCards[random.randint(0, len(self.listOfCards)-1)]
         self.RemoveCard(self.listOfCards,cardToGive)
@@ -44,9 +37,3 @@ class Deck:
             self.RemoveCard(self.listOfCards,curCard)
             newDeck.append(curCard)
         self.listOfCards = newDeck
-
-
-        
-
-
-

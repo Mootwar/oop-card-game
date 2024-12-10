@@ -31,10 +31,12 @@ class Dealer:
         The dealer's logic for playing their turn:
         - Draws cards until reaching at least a value of 16.
         - Stops drawing if the hand value is 16 or more.
-        - Finally return the value of their hand
+        - Finally return the value of their hand.
         """
         while self._hand.GetScore() < 16:
             self._hand.hit()
+        return self._hand.GetScore()  # Return the dealer's final score
+   
     def DealerScore(self) -> int:
         """
         Methond to get the dealers score

@@ -9,6 +9,8 @@ class Game:
         self.GameDeck = Deck(numOfCards)
         self.Player = Player(self.GameDeck)
         self.Dealer = Dealer(self.GameDeck)
+
+    def start_game(self):
         self.PlayGame()
 
 
@@ -41,7 +43,5 @@ class Game:
                     print("you win!")
                 elif int(player_score) < dealer_score:
                     print("you lose!")
-                else:
-                    print("its a tie!")
-
-
+                elif int(player_score) == dealer_score and not self.Dealer._hand.is_bust() and not self.Player._hand.is_bust():
+                    print("It's a tie!")

@@ -1,12 +1,13 @@
 """Card class
-    Handles the card states and uses encapsulation with property tags to secure data 
+    Handles the card states and uses
+    encapsulation with property tags to secure data
     security and immutability.
-    
+
 Returns:
     Card: A playing card with a suit and rank, along with its associated value.
 """
 
-from typing import Dict, Tuple
+from typing import Tuple
 
 # Define dictionaries for suits and ranks
 SUITS = {
@@ -32,7 +33,9 @@ RANKS = {
     "ace": 11  # Handle flexible Ace value in Hand or Dealer logic
 }
 
+
 class Card:
+
     def __init__(self, suit: str, rank: str):
         # Check that suit and rank are valid
         if suit.lower() not in SUITS:

@@ -1,6 +1,6 @@
 import unittest
 import io
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from classes import Card_logic
 from classes import player_logic
 from classes import Dealer_logic
@@ -8,14 +8,14 @@ from classes import Deck_logic
 from classes import Game_logic
 from classes import Hand_logic
 
+
 class TestCardLogic(unittest.TestCase):
     def test_card_creation(self):
-      card = Card_logic.Card("hearts", "ace")
-      self.assertEqual(card.suit, "Hearts")
-      self.assertEqual(card.rank, "ace")
-      self.assertEqual(card.value, (11, "Hearts"))
-      self.assertEqual(card.__repr__(), "Ace of Hearts")
-      
+        card = Card_logic.Card("hearts", "ace")
+        self.assertEqual(card.suit, "Hearts")
+        self.assertEqual(card.rank, "ace")
+        self.assertEqual(card.value, (11, "Hearts"))
+        self.assertEqual(card.__repr__(), "Ace of Hearts")
 
     def test_invalid_suit(self):
         with self.assertRaises(ValueError):
@@ -25,7 +25,9 @@ class TestCardLogic(unittest.TestCase):
         with self.assertRaises(ValueError):
             Card_logic.Card("hearts", "invalid_rank")
 
+
 class TestDealerLogic(unittest.TestCase):
+
     def test_dealer_initialization(self):
         deck = Deck_logic.Deck(1)
         dealer = Dealer_logic.Dealer(deck)
@@ -47,7 +49,8 @@ class TestDealerLogic(unittest.TestCase):
         deck = Deck_logic.Deck(1)
         dealer = Dealer_logic.Dealer(deck)
         self.assertEqual(len(dealer._hand.cards), 2)
-        self.assertTrue(all(isinstance(card, Card_logic.Card) for card in dealer._hand.cards))
+        self.assertTrue(all(isinstance(card,
+                                       Card_logic.Card) for card in dealer._hand.cards))
 
     def test_dealer_hand_property(self):
         deck = Deck_logic.Deck(1)
@@ -88,7 +91,7 @@ class TestDealerLogic(unittest.TestCase):
         self.assertIn("Dealer's Hand:", output)
         self.assertTrue(any(card.__repr__() in output for card in dealer._hand.cards))
 
-  
+
 class TestGameLogic(unittest.TestCase):
     @patch('builtins.input', return_value='1')
     def test_game_initialization(self, mock_input):
@@ -177,6 +180,7 @@ class TestGameLogic(unittest.TestCase):
                 output = mock_stdout.getvalue()
                 self.assertIn("It's a tie!", output)
 
+
 class TestPlayerLogic(unittest.TestCase):
 
     def test_player_repr(self):
@@ -193,20 +197,21 @@ class TestPlayerLogic(unittest.TestCase):
             player.play_turn()
         self.assertIn("invalid input", str(context.exception))
 
+
 class TestHandLogic(unittest.TestCase):
     def test_update_score_with_ace_adjustment(self):
         # Create a mock deck (not used here directly)
         deck = Deck_logic.Deck(1)
-        
-        # Create a hand and manually add cards to ensure the condition
+
         hand = Hand_logic.Hand(deck)
         hand.cards = [
-            Card_logic.Card("hearts", "ace"),  # Ace (value = 11)
-            Card_logic.Card("spades", "king"), # King (value = 10)
-            Card_logic.Card("clubs", "five")   # Five (value = 5)
+            Card_logic.Card("hearts", "ace"),
+            Card_logic.Card("spades", "king"),
+            Card_logic.Card("clubs", "five")
         ]
         hand.update_score()
         self.assertEqual(hand.score, 16)
+
 
 if __name__ == "__main__":
     unittest.main()

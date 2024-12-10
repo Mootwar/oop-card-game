@@ -85,8 +85,9 @@ class TestDealerLogic(unittest.TestCase):
         with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
             dealer.printHand()
             output = mock_stdout.getvalue()
-        self.assertIn("Dealer's Hand:", output)  
-        self.assertTrue(any(card.__repr__() in output for card in dealer._hand.cards))  
+        self.assertIn("Dealer's Hand:", output)
+        self.assertTrue(any(card.__repr__() in output for card in dealer._hand.cards))
+
   
 class TestGameLogic(unittest.TestCase):
     @patch('builtins.input', return_value='1')
@@ -111,16 +112,17 @@ class TestGameLogic(unittest.TestCase):
                     with patch.object(game.Dealer._hand, 'GetScore', return_value=16):
                         game.PlayGame()
                         output = mock_stdout.getvalue()
-                        self.assertIn("you win!", output)
+                        self.assertIn("You win!", output)
 
     @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_PlayGame_lose(self, mock_stdout, mock_input):
         game = Game_logic.Game()
         with patch.object(game.Player._hand, 'is_bust', return_value=True):
-            game.PlayGame()
-            output = mock_stdout.getvalue()
-            self.assertIn("you lose!", output)
+            with patch.object(game.Dealer._hand, 'GetScore', return_value=20):
+                game.PlayGame()
+                output = mock_stdout.getvalue()
+                self.assertIn("You lose!", output)
 
     @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
@@ -131,7 +133,7 @@ class TestGameLogic(unittest.TestCase):
                 with patch.object(game.Dealer._hand, 'GetScore', return_value=20):
                     game.PlayGame()
                     output = mock_stdout.getvalue()
-                    self.assertIn("you lose!", output)
+                    self.assertIn("You lose!", output)
 
     @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
@@ -155,7 +157,7 @@ class TestGameLogic(unittest.TestCase):
                     with patch.object(game.Dealer._hand, 'GetScore', return_value=16):
                         game.PlayGame()
                         output = mock_stdout.getvalue()
-                        self.assertIn("you win!", output)
+                        self.assertIn("You win!", output)
 
     @patch('builtins.input', return_value='1')
     @patch('sys.stdout', new_callable=io.StringIO)
@@ -173,7 +175,7 @@ class TestGameLogic(unittest.TestCase):
             with patch.object(game.Player._hand, 'is_bust', return_value=True):
                 game.PlayGame()
                 output = mock_stdout.getvalue()
-                self.assertIn("its a tie!", output)
+                self.assertIn("It's a tie!", output)
 
 class TestPlayerLogic(unittest.TestCase):
 
@@ -189,7 +191,22 @@ class TestPlayerLogic(unittest.TestCase):
         player = player_logic.Player(deck)
         with self.assertRaises(Exception) as context:
             player.play_turn()
-        self.assertIn("invalud input", str(context.exception))
+        self.assertIn("invalid input", str(context.exception))
+
+class TestHandLogic(unittest.TestCase):
+    def test_update_score_with_ace_adjustment(self):
+        # Create a mock deck (not used here directly)
+        deck = Deck_logic.Deck(1)
+        
+        # Create a hand and manually add cards to ensure the condition
+        hand = Hand_logic.Hand(deck)
+        hand.cards = [
+            Card_logic.Card("hearts", "ace"),  # Ace (value = 11)
+            Card_logic.Card("spades", "king"), # King (value = 10)
+            Card_logic.Card("clubs", "five")   # Five (value = 5)
+        ]
+        hand.update_score()
+        self.assertEqual(hand.score, 16)
 
 if __name__ == "__main__":
     unittest.main()

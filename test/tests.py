@@ -75,7 +75,7 @@ class TestDealerLogic(unittest.TestCase):
     def test_show_first_card_empty_hand(self):
         deck = Deck_logic.Deck(1)
         dealer = Dealer_logic.Dealer(deck)
-        dealer._hand.cards = []  # Simulate an empty hand
+        dealer._hand.cards = []
         first_card = dealer.show_first_card()
         self.assertIsNone(first_card)
 
@@ -101,7 +101,7 @@ class TestGameLogic(unittest.TestCase):
         result = game.GUI()
         self.assertEqual(result, '1')
 
-    @patch('builtins.input', side_effect=['1', 'h', 's'])  # Mock multiple inputs
+    @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_PlayGame(self, mock_stdout, mock_input):
         game = Game_logic.Game()
@@ -113,7 +113,7 @@ class TestGameLogic(unittest.TestCase):
                         output = mock_stdout.getvalue()
                         self.assertIn("you win!", output)
 
-    @patch('builtins.input', side_effect=['1', 'h', 's'])  # Mock multiple inputs
+    @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_PlayGame_lose(self, mock_stdout, mock_input):
         game = Game_logic.Game()
@@ -122,7 +122,7 @@ class TestGameLogic(unittest.TestCase):
             output = mock_stdout.getvalue()
             self.assertIn("you lose!", output)
 
-    @patch('builtins.input', side_effect=['1', 'h', 's'])  # Mock multiple inputs
+    @patch('builtins.input', side_effect=['1', 'h', 's'])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_PlayGame_dealer_wins(self, mock_stdout, mock_input):
         game = Game_logic.Game()
@@ -183,7 +183,7 @@ class TestPlayerLogic(unittest.TestCase):
         representation = repr(player)
         self.assertIn("Player's hand:", representation)
 
-    @patch('builtins.input', side_effect=['x'])  # Invalid input
+    @patch('builtins.input', side_effect=['x'])
     def test_play_turn_invalid_input(self, mock_input):
         deck = Deck_logic.Deck(1)
         player = player_logic.Player(deck)
